@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Lambda
+lmb
 ========
 
-Lambda is a toolkit for image processing and pattern recognition.
+lmb is a toolkit for image processing and pattern recognition.
 
 Information and examples can be found on the `Lambda Labs homepage <http://lambdal.com/>`_.
 
@@ -15,9 +15,9 @@ Contribute
 
 Fork us on `github`_::
 
-    git clone git@github.com:lambdal/lambda.git
+    git clone git@github.com:lambdal/lmb.git
 
-.. _github: http://github.com/lambdal/lambda
+.. _github: http://github.com/lambdal/lmb
 """
 try:
     from setuptools import setup
@@ -26,7 +26,7 @@ except ImportError:
 
 
 setup(
-    name='Lambda',
+    name='lmb',
     version='0.1-dev',
     url='http://lambdal.com',
     license='MIT',
@@ -44,7 +44,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Scientific/Engineering :: Artificial Intelligence'
     ],
-    packages=['lambda'],
+    packages=['lmb'],
     include_package_data=True,
     platforms='any'
 )
