@@ -1,4 +1,4 @@
-lambda
+lambda - Lambda Labs Core API
 ======
 
-Lambda Labs Core Tools
+The long awaited debut. Coming soon.
