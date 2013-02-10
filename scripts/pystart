@@ -1,0 +1,22 @@
+#!/bin/sh
+SCRIPTDIR=`dirname $0`
+if [[ $1 ]]; then
+    FILETEXT="        $1\n        ~~~~~"
+else
+    FILETEXT=""
+fi;
+source $SCRIPTDIR/script_env
+
+function pheadEcho {
+    echo "#!/usr/bin/env python"
+    echo "# -*- encoding: utf-8 -*-"
+    echo "\"\"\"
+$FILETEXT
+
+        :copyright: (c) by $ENTITY
+        :license: $LICENSE_DESC
+\"\"\"
+"
+}
+
+pheadEcho

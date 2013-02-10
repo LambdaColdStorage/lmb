@@ -5,7 +5,8 @@ lmb
 
 lmb is a toolkit for image processing and pattern recognition.
 
-Information and examples can be found on the `Lambda Labs homepage <http://lambdal.com/>`_.
+Information and examples can be found on the `Lambda Labs homepage
+<http://lambdal.com/>`_.
 
 Features
 --------
@@ -29,7 +30,7 @@ setup(
     name='lmb',
     version='0.1-dev',
     url='http://lambdal.com',
-    license='MIT',
+    license='BSD',
     author='Stephen A. Balaban',
     author_email='s@lambdal.com',
     description='Computer vision, without the Ph.D.',
@@ -38,7 +39,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
