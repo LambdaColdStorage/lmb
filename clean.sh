@@ -1,6 +1,6 @@
 #!/bin/sh
 SWF=`find . | grep .*.sw[a-z]`
-PYCF=`find . | grep *.pyc`
+PYCF=`find . | grep .pyc`
 if [ -n "$SWF" ]; then
 	echo Removing swap files. $SWF
 	rm $SWF
