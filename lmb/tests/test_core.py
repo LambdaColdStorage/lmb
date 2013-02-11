@@ -60,4 +60,4 @@ def test_detect(img_url='http://lambdal.com/images/test.jpg'):
             return True, ''
         else:
             return False, 'Expected data, got %s' % data
-    assert_with(path('/detect'), face_detected)
+    assert_with(path('/detect?url=%s' % img_url), face_detected)

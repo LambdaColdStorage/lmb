@@ -3,7 +3,7 @@ SCRIPTDIR=`dirname $0`
 DATEYEAR=`date +%Y`
 CREATION=`date "+%Y-%m-%d %H:%M:%S %z"`
 if [[ $1 ]]; then
-    FILETEXT="        $1\n        ~~~~~"
+    FILETEXT="    $1\n    ~~~~~"
 else
     FILETEXT=""
 fi;
