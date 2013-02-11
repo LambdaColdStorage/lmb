@@ -20,6 +20,6 @@ function teardown {
 
 
 setup;
-check "LINTING" "./check.py --git-index"
+check "LINTING" "./check.py"
 check "TESTING" "nosetests --exe lmb"
 teardown;
