@@ -16,6 +16,7 @@ import web.httpserver
 import sys
 import json
 import threading
+import detect
 
 urls = (
     '/', 'hello',
@@ -36,10 +37,8 @@ class hello:
 
 class detect:
     def GET(self):
-#        result = detect.detect_faces(url)
-        result = [{}]
-        return response(result)
-
+        faces = detect.faces_url(url)
+        return response(faces)
 
 def run(port=8080, address='0.0.0.0'):
     a_p = (address, port)
