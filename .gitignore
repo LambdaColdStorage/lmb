@@ -36,3 +36,4 @@ nosetests.xml
 
 # vi swap fileis
 .*.sw[a-z]
+lmb/cascades/haarcascade_frontalface_default.xml
