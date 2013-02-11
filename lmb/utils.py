@@ -17,12 +17,19 @@ import os
 
 cwd = os.path.dirname(__file__)
 
+class LambdaExcept(Exception):
+    pass
+
 def file_url(url):
     """
     url -> file
     """
-    with closing(urllib2.urlopen(url)) as u:
-        f = cStringIO.StringIO(u.read())
+    try:
+        with closing(urllib2.urlopen(url)) as u:
+            f = cStringIO.StringIO(u.read())
+    except urllib2.URLError as e:
+        raise LambdaExcept("Got an error when opening the url. The network"
+                " connection might be down.")
     return f
 
 def file_fpath(fpath):

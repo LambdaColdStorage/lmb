@@ -18,6 +18,9 @@ SERVER="http://localhost:%s" % DEFAULT_PORT
 def path(p, base=SERVER):
     return urlparse.urljoin(base, p)
 
+def assert_online(url=SERVER):
+    assert server_online(url), "Expected to see the server online at %s." % url
+
 def assert_with(url, pred):
     """
     Assert predicate function.
@@ -47,7 +50,7 @@ def server_online(url):
     return False
 
 def test_server(url=SERVER):
-    assert server_online(url), "Expected to see the server online at %s." % url
+    assert_online()
     with closing(urllib2.urlopen(url)) as u:
         pydata = json.loads(u.read())
         assert successful_response(pydata, u), \
