@@ -8,10 +8,14 @@
     :copyright: (c) 2013. Lambda Labs, Inc.
     :license: BSD. See LICENSE.
 """
+from contextlib import closing
 import urllib2
 import cStringIO
 from urlparse import urlparse
 from PIL import Image as PILImage
+import os
+
+cwd = os.path.dirname(__file__)
 
 def file_url(url):
     """
@@ -41,3 +45,6 @@ def pil_path(path):
     pi = PILImage.open(file_url(path))
     return pi
 
+def cascade_path(path):
+    path = os.path.join(cwd, 'cascades/', path)
+    return path

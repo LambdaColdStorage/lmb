@@ -19,8 +19,8 @@ import threading
 import detect
 
 urls = (
-    '/', 'hello',
-    '/detect', 'detect',
+    '/', 'Hello',
+    '/detect', 'Detect',
 )
 app = web.application(urls, globals())
 
@@ -31,13 +31,15 @@ def response(obj):
         'result': obj
     }, indent=4)
 
-class hello:
+class Hello:
     def GET(self):
         return response(None)
 
-class detect:
+class Detect:
     def GET(self):
+        url = web.input(url=None).url
         faces = detect.faces_url(url)
+
         return response(faces)
 
 def run(port=8080, address='0.0.0.0'):

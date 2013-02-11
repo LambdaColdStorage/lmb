@@ -10,6 +10,7 @@
     :copyright: (c) 2013. Lambda Labs, Inc.
     :license: BSD. See LICENSE.
 """
+import cv
 from utils import pil_path
 
 class Point(object):
@@ -55,7 +56,7 @@ class Img(object):
     """
     def __init__(self, src):
         self.src = src
-        self.img_pil = pil_path(url)
+        self.img_pil = pil_path(src)
 
     def cv_rep(self):
         """
