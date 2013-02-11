@@ -7,7 +7,12 @@
         :license: BSD. See LICENSE.
 """
 import lmb
+import os
+import sys
 DEFAULT_PORT = 8080
 
-# setup the rest server at localhost:DEFAULT_PORT
-lmb.run(DEFAULT_PORT)
+def setup():
+    pass
+
+def teardown():
+    pass

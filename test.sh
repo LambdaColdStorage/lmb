@@ -1,12 +1,25 @@
 #!/bin/sh
-function check {\
+function check {
 	TASK=$1
 	EVAL=$2
+	echo
 	echo $TASK
 	echo "$EVAL"
 	eval $EVAL
-	[ $? -eq 0 ] && echo OK || echo FAIL
+	[ $? -eq 0 ] && echo DONE || echo FAIL
 }
 
+function setup {
+	python -c"import lmb; lmb.run()" &
+	server_pid=$!
+}
+
+function teardown {
+	kill -9 $server_pid
+}
+
+
+setup;
 check "LINTING" "./check.py --git-index"
 check "TESTING" "nosetests --exe lmb"
+teardown;
