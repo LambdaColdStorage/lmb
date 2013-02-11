@@ -34,11 +34,11 @@ def assert_with(url, pred):
 
 
 def code_is(code=200, resp=None):
-    got = rep.code
+    got = resp.code
     assert got == code, 'HTTP code expected: %d, got %d' % (code, got)
 
 def successful_response(pydata, resp):
-    assert resp.code == 200, 'HTTP code not 200, got %d' % resp.code
+    code_is(200, resp)
     return 'status' in pydata
 
 def server_online(url):

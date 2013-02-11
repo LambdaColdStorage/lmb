@@ -2,6 +2,7 @@
 function check {
 	TASK=$1
 	EVAL=$2
+	HARD=$3
 	echo
 	echo $TASK
 	echo "$EVAL"
@@ -20,6 +21,6 @@ function teardown {
 
 
 setup;
-check "LINTING" "./check.py"
+check "LINTING" "./check.py" --hard
 check "TESTING" "nosetests --exe lmb"
 teardown;

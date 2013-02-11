@@ -13,7 +13,6 @@
 """
 import web
 import web.httpserver
-import sys
 import json
 import threading
 import detect

@@ -13,16 +13,18 @@
 import cv
 from utils import pil_path
 
+
 class Point(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-    
+
     def dict(self):
         return {
             'x': self.x,
             'y': self.y
         }
+
 
 class Size(object):
     def __init__(self, w, h):
@@ -34,6 +36,7 @@ class Size(object):
             'w': self.w,
             'h': self.h
         }
+
 
 class Rect(object):
     """
@@ -49,6 +52,7 @@ class Rect(object):
     def dict(self):
         return dict(origin=self.origin.dict(),
                     size=self.size.dict())
+
 
 class Img(object):
     """
@@ -67,4 +71,3 @@ class Img(object):
         cv.SetData(cvi, pc.tostring(), pc.size[0])
         self.img_cv = cvi
         return cvi
-

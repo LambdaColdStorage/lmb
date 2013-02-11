@@ -27,7 +27,7 @@ def file_url(url):
     try:
         with closing(urllib2.urlopen(url)) as u:
             f = cStringIO.StringIO(u.read())
-    except urllib2.URLError as e:
+    except urllib2.URLError:
         raise LambdaExcept("Got an error when opening the url. The network"
                 " connection might be down.")
     return f

@@ -9,7 +9,7 @@
     :license: BSD. See LICENSE.
 """
 from core import Img, Rect
-from utils import file_url, cascade_path
+from utils import cascade_path
 import cv
 
 def faces_img(img, cascade="haarcascade_frontalface_default.xml"):
