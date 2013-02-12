@@ -15,10 +15,13 @@ from urlparse import urlparse
 from PIL import Image as PILImage
 import os
 
+
 cwd = os.path.dirname(__file__)
+
 
 class LambdaExcept(Exception):
     pass
+
 
 def file_url(url):
     """
@@ -28,12 +31,14 @@ def file_url(url):
         with closing(urllib2.urlopen(url)) as u:
             f = cStringIO.StringIO(u.read())
     except urllib2.URLError:
-        raise LambdaExcept("Got an error when opening the url. The network"
-                " connection might be down.")
+        raise LambdaExcept("Got an error when opening the url. The network \
+                connection might be down.")
     return f
+
 
 def file_fpath(fpath):
     return open(fpath)
+
 
 def file_path(path):
     """
@@ -42,8 +47,9 @@ def file_path(path):
     parsed = urlparse(path)
     if 'http' in parsed.scheme:
         return file_url(path)
-    else: # file
+    else:
         return open(path)
+
 
 def pil_path(path):
     """
@@ -51,6 +57,7 @@ def pil_path(path):
     """
     pi = PILImage.open(file_url(path))
     return pi
+
 
 def cascade_path(path):
     path = os.path.join(cwd, 'cascades/', path)

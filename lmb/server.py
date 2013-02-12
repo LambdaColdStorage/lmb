@@ -23,6 +23,7 @@ urls = (
 )
 app = web.application(urls, globals())
 
+
 def response(obj):
     web.header('Content-Type', 'application/json')
     return json.dumps({
@@ -30,9 +31,11 @@ def response(obj):
         'result': obj
     }, indent=4)
 
+
 class Hello:
     def GET(self):
         return response(None)
+
 
 class Detect:
     def GET(self):
@@ -41,9 +44,12 @@ class Detect:
 
         return response(faces)
 
+
 def run(port=8080, address='0.0.0.0'):
     a_p = (address, port)
-    threading.Thread(target=web.httpserver.runsimple, args=(app.wsgifunc(), a_p)).start()
+    threading.Thread(target=web.httpserver.runsimple,
+                     args=(app.wsgifunc(), a_p)).start()
+
 
 if __name__ == "__main__":
     run()

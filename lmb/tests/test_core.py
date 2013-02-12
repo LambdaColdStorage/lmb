@@ -13,18 +13,22 @@ import json
 import urllib2
 import urlparse
 
-SERVER="http://localhost:%s" % DEFAULT_PORT
+
+SERVER = "http://localhost:%s" % DEFAULT_PORT
+
 
 def path(p, base=SERVER):
     return urlparse.urljoin(base, p)
 
+
 def assert_online(url=SERVER):
     assert server_online(url), "Expected to see the server online at %s." % url
+
 
 def assert_with(url, pred):
     """
     Assert predicate function.
-    
+
     Predicate function takes pydata, request obj -> returns result, string
     """
     with closing(urllib2.urlopen(url)) as r:
@@ -37,9 +41,11 @@ def code_is(code=200, resp=None):
     got = resp.code
     assert got == code, 'HTTP code expected: %d, got %d' % (code, got)
 
+
 def successful_response(pydata, resp):
     code_is(200, resp)
     return 'status' in pydata
+
 
 def server_online(url):
     try:
@@ -49,6 +55,7 @@ def server_online(url):
         return False
     return False
 
+
 def test_server(url=SERVER):
     assert_online()
     with closing(urllib2.urlopen(url)) as u:
@@ -56,10 +63,12 @@ def test_server(url=SERVER):
         assert successful_response(pydata, u), \
             'Response should be json deserializable, got: %s' % pydata
 
+
 def test_detect(img_url='http://lambdal.com/images/test.jpg'):
     def face_detected(data, req):
         faces = data.get('result', None)
-        if len(faces) == 1: # got a face (lenas)
+        # got a face (lenas)
+        if len(faces) == 1:
             return True, ''
         else:
             return False, 'Expected data, got %s' % data

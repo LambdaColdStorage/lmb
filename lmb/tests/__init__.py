@@ -8,8 +8,10 @@
 """
 DEFAULT_PORT = 8080
 
+
 def setup():
     pass
+
 
 def teardown():
     pass
