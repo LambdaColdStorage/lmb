@@ -11,17 +11,19 @@
 import sys
 import os
 import lmb.server as server
-import subprocess, signal
+import subprocess
 
 __version__ = '0.1-dev'
 __author__ = [
     "Stephen A. Balaban <s@lambdal.com>",
 ]
 
-DEFAULT_PORT=8080
+DEFAULT_PORT = 8080
+
 
 def run(port=DEFAULT_PORT):
     server.run(port)
+
 
 def kill_server():
     pid = str(os.getpid())
