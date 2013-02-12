@@ -6,13 +6,12 @@
         :copyright: (c) by Lambda Labs, Inc.
         :license: BSD. See LICENSE.
 """
-import lmb
-import os
-import sys
 DEFAULT_PORT = 8080
+
 
 def setup():
     pass
+
 
 def teardown():
     pass
