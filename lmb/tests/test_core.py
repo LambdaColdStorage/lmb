@@ -62,14 +62,3 @@ def test_server(url=SERVER):
         pydata = json.loads(u.read())
         assert successful_response(pydata, u), \
             'Response should be json deserializable, got: %s' % pydata
-
-
-def test_detect(img_url='http://lambdal.com/images/test.jpg'):
-    def face_detected(data, req):
-        faces = data.get('result', None)
-        # got a face (lenas)
-        if len(faces) == 1:
-            return True, ''
-        else:
-            return False, 'Expected data, got %s' % data
-    assert_with(path('/detect?url=%s' % img_url), face_detected)
