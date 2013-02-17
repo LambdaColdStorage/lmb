@@ -26,8 +26,7 @@ def assert_online(url=SERVER):
 
 
 def assert_with(url, pred):
-    """
-    Assert predicate function.
+    """Assert predicate function.
 
     Predicate function takes pydata, request obj -> returns result, string
     """

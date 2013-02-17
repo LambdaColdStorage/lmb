@@ -24,8 +24,7 @@ class LambdaExcept(Exception):
 
 
 def file_url(url):
-    """
-    url -> file
+    """url -> file
     """
     try:
         with closing(urllib2.urlopen(url)) as u:
@@ -41,8 +40,7 @@ def file_fpath(fpath):
 
 
 def file_path(path):
-    """
-    path(url || filepath) -> file
+    """path(url || filepath) -> file
     """
     parsed = urlparse(path)
     if 'http' in parsed.scheme:
@@ -52,8 +50,7 @@ def file_path(path):
 
 
 def pil_path(path):
-    """
-    Make a PIL Image given a URL/fname
+    """Make a PIL Image given a URL/fname
     """
     pi = PILImage.open(file_url(path))
     return pi
