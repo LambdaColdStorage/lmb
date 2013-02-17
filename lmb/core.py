@@ -126,8 +126,7 @@ class Face(object):
         return min(self.n, outof) / outof
 
     def fast_features(self):
-        """
-        Quickly generate facial features (no detection, just guessing)
+        """Quickly generate facial features (no detection, just guessing)
         """
         def ffeat(name, x, y):
             return (

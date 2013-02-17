@@ -8,6 +8,7 @@
     :copyright: (c) 2013. Lambda Labs, Inc.
     :license: BSD. See LICENSE.
 """
+from functools import partial
 from lmb.tests.test_core import assert_with, path
 
 
@@ -15,22 +16,26 @@ FEATURES = ['nose', 'eye_left', 'eye_right', 'mouth_left', 'mouth_center',
             'mouth_right']
 
 
-def face_detected(data, req):
-    faces = data.get('images', None)
-    # got a face (lenas)
-    if len(faces) == 1:
-        return True, ''
-    else:
-        return False, 'Expected non-emty images, got %s' % data
+def face_detected(data, req, count=1):
+    images = data.get('images', [])
+    if not images:
+        return False, 'Expected to find images in data, got %s' % data
+    for img in images:
+        faces = img.get('faces', [])
+        # got a face (lenas)
+        if len(faces) == count:
+            return True, ''
+        else:
+            return False, 'Expected only %d face(s), got %d' % (count,
+                                                                len(faces))
 
 
 def test_detect_features(img_url='http://lambdal.com/images/test.jpg',
                          features=FEATURES):
-    """
-    Test 'fast face' feature detection (eyes, nose, mouth filled in)
+    """Test 'fast face' feature detection (eyes, nose, mouth filled in)
     """
     def face_detected_with_features(data, req):
-        detected, resp = face_detected(data, req)
+        detected, resp = face_detected(data, req, 1)
         if not detected:
             return detected, resp
 
@@ -46,6 +51,13 @@ def test_detect_features(img_url='http://lambdal.com/images/test.jpg',
         return True, ''
 
     assert_with(path('/detect?urls=%s' % img_url), face_detected_with_features)
+
+
+def test_detect_single_face(img_url='http://lambdal.com/test2.jpg'):
+    """Assert that there's only one face detected in this image
+    """
+    assert_with(path('/detect?urls=%s' % img_url), partial(face_detected,
+                                                           count=1))
 
 
 def test_detect(img_url='http://lambdal.com/images/test.jpg'):

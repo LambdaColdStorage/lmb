@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 """
+        Wonderful linting script by jtriley @ https://github.com/jtriley/StarCluster
 
-
-        :copyright: (c) by Lambda Labs, Inc.
-        :license: BSD. See LICENSE.
+        :copyright: (c) Justin Riley <justin.t.riley@gmail.com>
+        :license: LGPL
 """
 import os
 import re
@@ -18,8 +18,7 @@ from pyflakes import checker
 
 
 def check(codeString, filename):
-    """
-    Check the Python source given by C{codeString} for flakes.
+    """Check the Python source given by C{codeString} for flakes.
 
     @param codeString: The Python source to check.
     @type codeString: C{str}
@@ -71,8 +70,7 @@ def check(codeString, filename):
 
 
 def checkPath(filename):
-    """
-    Check the given path, printing out any warnings detected.
+    """Check the given path, printing out any warnings detected.
 
     @return: the number of warnings printed
     """

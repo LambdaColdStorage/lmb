@@ -13,11 +13,11 @@ from utils import cascade_path
 import cv
 
 
-def faces_img(img, cascade="haarcascade_frontalface_default.xml"):
+def faces_img(img, cascade="haarcascade_frontalface_default.xml", min_n=5):
     assert isinstance(img, Img), "detect_face requires an img object."
     hc = cv.Load(cascade_path(cascade))
     faces = cv.HaarDetectObjects(img.cv_rep(), hc, cv.CreateMemStorage())
-    return [Face(Rect(*rect), n, img).dict() for rect, n in faces]
+    return [Face(Rect(*rect), n, img).dict() for rect, n in faces if n > min_n]
 
 
 def img_url(url, detect=True):
