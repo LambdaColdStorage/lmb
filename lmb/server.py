@@ -16,6 +16,7 @@ import web.httpserver
 import json
 import threading
 import detect
+import collections
 
 urls = (
     '/', 'Hello',
@@ -24,11 +25,19 @@ urls = (
 app = web.application(urls, globals())
 
 
-def response(obj):
+def serialize(o):
+    if isinstance(o, collections.Iterable):
+        return [serialize(t) for t in o]
+    if hasattr(o, 'dict'):
+        return o.dict()
+    return {}
+
+
+def response(obj, rkey='images'):
     web.header('Content-Type', 'application/json')
     return json.dumps({
         'status': 'success',
-        'result': obj
+        '%s' % rkey: serialize(obj)
     }, indent=4)
 
 
@@ -39,10 +48,10 @@ class Hello:
 
 class Detect:
     def GET(self):
-        url = web.input(url=None).url
-        faces = detect.faces_url(url)
-
-        return response(faces)
+        urls_str = web.input(urls='').urls
+        urls = urls_str.split(',') if urls_str else []
+        images = [detect.img_url(url) for url in urls if url]
+        return response(images, 'images')
 
 
 def run(port=8080, address='0.0.0.0'):
