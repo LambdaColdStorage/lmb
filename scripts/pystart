@@ -16,7 +16,7 @@ function pheadEcho {
 $FILETEXT
 
     :created: $CREATION
-    :copyright: (c) $DATEYEAR. $ENTITY
+    :copyright: (c) $DATEYEAR, $ENTITY
     :license: $LICENSE_DESC
 \"\"\"
 "
