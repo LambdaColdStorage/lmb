@@ -129,10 +129,14 @@ class Face(object):
         """Quickly generate facial features (no detection, just guessing)
         """
         def ffeat(name, x, y):
+            w = self.rect.w / 5.
+            h = self.rect.h / 12.
             return (
                 name, {
-                    "x": self.rect.x + self.rect.w * x,
-                    "y": self.rect.y + self.rect.h * y
+                    'x': self.rect.x + self.rect.w * x - w / 2.,
+                    'y': self.rect.y + self.rect.h * y - h / 2.,
+                    'w': w,
+                    'h': h,
                 }
             )
         return dict([

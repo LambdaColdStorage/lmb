@@ -8,19 +8,33 @@
     :copyright: (c) 2013. Lambda Labs, Inc.
     :license: BSD. See LICENSE.
 """
+import os
+import datetime
 from contextlib import closing
 import urllib2
 import cStringIO
 from urlparse import urlparse
 from PIL import Image as PILImage
-import os
+import collections
 
 
+module_name = 'lmb'
 cwd = os.path.dirname(__file__)
 
 
 class LambdaExcept(Exception):
     pass
+
+
+def tuple_rect(rect):
+    return rect['x'], rect['y'], rect['w'], rect['h']
+
+
+def is_rect(rect):
+    if not isinstance(rect, collections.Iterable):
+        return False
+    rect_keys = ['x', 'y', 'w', 'h']
+    return all(k in rect for k in rect_keys)
 
 
 def file_url(url):
@@ -52,10 +66,23 @@ def file_path(path):
 def pil_path(path):
     """Make a PIL Image given a URL/fname
     """
-    pi = PILImage.open(file_url(path))
+    pi = PILImage.open(file_path(path))
     return pi
 
 
 def cascade_path(path):
     path = os.path.join(cwd, 'cascades/', path)
     return path
+
+
+def fname(filepath):
+    head, tail = os.path.split(filepath)
+    return tail
+
+
+def pretty_date(date):
+    return date.strftime('%Y-%m-%d')
+
+
+def pretty_now():
+    return pretty_date(datetime.datetime.now())
