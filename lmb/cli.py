@@ -22,6 +22,7 @@
 """
 import sys
 from sys import stdout
+import draw as lmb_draw
 import detect as lmb_detect
 from utils import fname, module_name, pretty_now, tuple_rect, is_rect
 
@@ -46,13 +47,14 @@ def detect(*images):
                     write_out(image, fkey, tuple_rect(fval))
 
 
-def draw(image, *shapes):
+def draw(image, shape):
     """Draw shapes on an image (default rectangles)
 
     :param image: an image path
     :param shapes: a list of serialized shapes
     """
-    pass
+    img = lmb_detect.img_url(image)
+    draw.draw_rect(img, shape)
 
 
 def edge(image):
