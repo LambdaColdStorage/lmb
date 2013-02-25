@@ -4,6 +4,10 @@ IS_OSX=1
 
 mkvirtualenv --clear --no-site-packages --distribute $NAME
 
+function install_cairo {
+	brew install cairo
+}
+
 function install_opencv{
 	echo "# Install OpenCV"
 	echo "# Link OpenCV"
@@ -19,6 +23,7 @@ function install_pip_packs {
 	pip install -r requirements.txt
 }
 
+# graphics lib
+install_cairo;
 install_opencv;
 install_pip_packs;
-
