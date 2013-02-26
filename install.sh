@@ -36,3 +36,8 @@ function download_cascade {
 
 download_cascade;
 echo DONE
+echo
+echo '# Add this to your .bashrc, .zshrc, .profile, or .bash_profile:'
+echo
+echo export PATH='$PATH':"$PWD/scripts/"
+echo
