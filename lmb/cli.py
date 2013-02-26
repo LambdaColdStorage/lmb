@@ -80,10 +80,13 @@ def gallery(*images):
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Image Gallery %s</title>
+    <title>%s</title>
 </head>
 <body>
+<h1>%s</h1>
 %s
+<hr />
+<img src="http://lambdal.com/images/lambda-labs-logo-25x25.png" /> Created with the <a href="http://github.com/lambdal/lmb">Lambda Labs API</a>
 </body>
 </html>
 """
@@ -91,7 +94,7 @@ def gallery(*images):
     mid = ''
     for image in images:
         mid += '\t<img src="%s" alt="%s" />\n' % (image, fname(image))
-    result = template % (title, mid)
+    result = template % (title, title, mid)
     stdout.write(result)
     return result
 
