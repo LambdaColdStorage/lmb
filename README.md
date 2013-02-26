@@ -9,22 +9,16 @@
 
 ## Install
 
-For now:
 
-git clone git@github.com:lambdal/lmb.git
+To install:
+
+```
+git clone git@github.com:lambdal/lmb.git && cd lmb && ./install.sh
+```
 
 Soon:
 
 curl http://www.lambdal.com/install.sh | sh
-
-### Install Process
-
-One step:
-
-```bash
-./install.sh
-```
-
 
 ## Command Line Tools
 
