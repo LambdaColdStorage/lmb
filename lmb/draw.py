@@ -11,7 +11,7 @@
     :license: BSD. See LICENSE.
 """
 import os
-from PIL import Image, ImageDraw
+from PIL import ImageDraw
 
 OUTTYPE = 'PNG'
 
@@ -19,12 +19,14 @@ OUTTYPE = 'PNG'
 def pil_rect(rect_tup):
     """ x, y, w, h -> x, y, x, y
     """
-    return (x, y, x + w, y + h)
+    x, y, w, h = [float(f) for f in rect_tup]
+    return (x, y), (x + w, y + h)
 
 
 def draw_name(src):
     head, tail = os.path.split(src)
-    return head + 'draw_' + tail
+    pwd = os.getcwd()
+    return os.path.join(pwd, 'draw_' + tail)
 
 
 def draw_rect(img, rect_tup):
@@ -32,5 +34,7 @@ def draw_rect(img, rect_tup):
     """
     pi = img.img_pil
     draw = ImageDraw.Draw(pi)
-    draw.rectangle(pil_rect(rect_tup), fill=None, outline="blue")
-    pi.save(draw_name(img.src), OUTTYPE)
+    draw.rectangle(pil_rect(rect_tup), fill=None, outline='green')
+    name = draw_name(img.src)
+    pi.save(name, OUTTYPE)
+    return name

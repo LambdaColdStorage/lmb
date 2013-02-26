@@ -47,14 +47,20 @@ def detect(*images):
                     write_out(image, fkey, tuple_rect(fval))
 
 
-def draw(image, shape):
+def draw(image, ftype, x, y, w, h):
     """Draw shapes on an image (default rectangles)
 
     :param image: an image path
-    :param shapes: a list of serialized shapes
+    :param x: rect x origin
+    :param y: rect y origin
+    :param w: rect w size
+    :param h: rect h size
     """
+    shape = (x, y, w, h)
     img = lmb_detect.img_url(image)
-    draw.draw_rect(img, shape)
+    out = lmb_draw.draw_rect(img, shape)
+    sys.stdout.write('%s\n' % out)
+    return out
 
 
 def edge(image):
@@ -92,6 +98,10 @@ def gallery(*images):
 
 if __name__ == '__main__':
     command = sys.argv[1]
+    args = sys.argv[2:]
     cmd = locals()[command]
-    for line in sys.stdin.readlines():
-        cmd(line.strip())
+    if (args):
+        cmd(*args)
+    else:
+        for line in sys.stdin.readlines():
+            cmd(*line.strip().split(' '))
