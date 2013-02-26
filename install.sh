@@ -1,31 +1,12 @@
 #!/bin/sh
 NAME=lmb
 IS_OSX=1
+CWD=`dirname $0`
 
 function setup_venv {
 	mkvirtualenv --clear --no-site-packages --distribute $NAME
+	pip install -r $CWD/requirements.txt
 }
-# https://github.com/LearnBoost/node-canvas/wiki/Installation---OSX
-
-function install_pycairo {
-	brew install py2cairo
-}
-
-function install_pixman {
-	curl http://www.cairographics.org/releases/pixman-0.20.0.tar.gz -o pixman.tar.gz
-	tar -zxf pixman.tar.gz && cd pixman-0.20.0/
-	./configure --prefix=/usr/local --disable-dependency-tracking
-	make install
-}
-
-function install_cairo {
-	brew install libpng
-	curl http://cairographics.org/releases/cairo-1.10.0.tar.gz -o cairo.tar.gz
-	tar -zxf cairo.tar.gz && cd cairo-1.10.0
-	./configure --prefix=/usr/local --disable-dependency-tracking
-	make install
-}
-
 function install_opencv {
 	echo "# Install OpenCV"
 	echo "# Link OpenCV"
@@ -43,7 +24,15 @@ function install_pip_packs {
 
 function install_lmb {
 	setup_venv;
-	install_cairo;
 	install_opencv;
 	install_pip_packs;
 }
+
+function download_cascade {
+	CASCADE_FF=https://jviolajones.googlecode.com/files/haarcascade_frontalface_default.xml
+	echo "# Downloading Haar Cascades from $CASCADE_FF"
+	curl $CASCADE_FF > $CWD/lmb/cascades/haarcascade_frontalface_default.xml
+}
+
+download_cascade;
+echo DONE
