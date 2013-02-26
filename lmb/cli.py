@@ -86,7 +86,8 @@ def gallery(*images):
 <h1>%s</h1>
 %s
 <hr />
-<img src="http://lambdal.com/images/lambda-labs-logo-25x25.png" /> Created with the <a href="http://github.com/lambdal/lmb">Lambda Labs API</a>
+<img src="http://lambdal.com/images/lambda-labs-logo-25x25.png" />
+Created with the <a href="http://github.com/lambdal/lmb">Lambda Labs API</a>
 </body>
 </html>
 """
