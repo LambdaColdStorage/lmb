@@ -47,14 +47,20 @@ def detect(*images):
                     write_out(image, fkey, tuple_rect(fval))
 
 
-def draw(image, shape):
+def draw(image, ftype, x, y, w, h):
     """Draw shapes on an image (default rectangles)
 
     :param image: an image path
-    :param shapes: a list of serialized shapes
+    :param x: rect x origin
+    :param y: rect y origin
+    :param w: rect w size
+    :param h: rect h size
     """
+    shape = (x, y, w, h)
     img = lmb_detect.img_url(image)
-    draw.draw_rect(img, shape)
+    out = lmb_draw.draw_rect(img, shape)
+    sys.stdout.write('%s\n' % out)
+    return out
 
 
 def edge(image):
@@ -74,10 +80,13 @@ def gallery(*images):
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Image Gallery %s</title>
+    <title>%s</title>
 </head>
 <body>
+<h1>%s</h1>
 %s
+<hr />
+<img src="http://lambdal.com/images/lambda-labs-logo-25x25.png" /> Created with the <a href="http://github.com/lambdal/lmb">Lambda Labs API</a>
 </body>
 </html>
 """
@@ -85,13 +94,17 @@ def gallery(*images):
     mid = ''
     for image in images:
         mid += '\t<img src="%s" alt="%s" />\n' % (image, fname(image))
-    result = template % (title, mid)
+    result = template % (title, title, mid)
     stdout.write(result)
     return result
 
 
 if __name__ == '__main__':
     command = sys.argv[1]
+    args = sys.argv[2:]
     cmd = locals()[command]
-    for line in sys.stdin.readlines():
-        cmd(line.strip())
+    if (args):
+        cmd(*args)
+    else:
+        for line in sys.stdin.readlines():
+            cmd(*line.strip().split(' '))
