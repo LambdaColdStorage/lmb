@@ -10,8 +10,11 @@
     :copyright: (c) 2013. Lambda Labs, Inc.
     :license: BSD. See LICENSE.
 """
+import os
 import cv
 from utils import pil_path
+from draw import pil_rect
+from PIL import ImageDraw
 
 
 class Point(object):
@@ -91,6 +94,36 @@ class Img(object):
         cv.SetData(cvi, pc.tostring(), pc.size[0])
         self.img_cv = cvi
         return cvi
+
+    def draw(self, rect):
+        """Draws a rectangle on an image, changes made in place
+        """
+        draw = ImageDraw.Draw(self.img_pil)
+        draw.rectangle(pil_rect(rect), fill=None, outline='green')
+        return self
+
+    def save(self, path):
+        """Saves this image to disk at path.
+        """
+        typemap = {
+            'JPG': 'JPEG'
+        }
+        ot = os.path.splitext(path)[1]
+        ot = ot.split('.')[-1] if '.' in ot else ot
+        if ot:
+            self.img_pil.save(path, typemap.get(ot.upper(), ot))
+        else:
+            raise Exception("Couldn't find a valid image type in path: %s"
+                            % path)
+
+    def crop(self, rect):
+        """Crops this image around the rect
+
+        img, rect -> pil_img
+        """
+        rect = [int(x) for x in rect]
+        cropped_img = self.img_pil.crop(rect)
+        return cropped_img
 
     def dict(self):
         d = {

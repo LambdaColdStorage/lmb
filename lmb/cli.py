@@ -24,7 +24,8 @@ import sys
 from sys import stdout
 import draw as lmb_draw
 import detect as lmb_detect
-from utils import fname, module_name, pretty_now, tuple_rect, is_rect
+from core import Img
+from utils import fname, module_name, pretty_now, tuple_rect, is_rect, new_name
 
 
 def detect(*images):
@@ -61,6 +62,24 @@ def draw(image, ftype, x, y, w, h):
     out = lmb_draw.draw_rect(img, shape)
     sys.stdout.write('%s\n' % out)
     return out
+
+
+def crop(path, shape, x, y, w, h):
+    """Crop image with rectangle
+
+    :param path: an image path
+    :param shape: some shape type
+    :param x: rect x origin
+    :param y: rect y origin
+    :param w: rect w size
+    :param h: rect h size
+    """
+    shape = (x, y, w, h)
+    img = Img(path)
+    cropped = img.crop(shape)
+    out = new_name(path, 'crop')
+    #cropped.save(out)
+    sys.stdout.write('%s\n' % out)
 
 
 def edge(image):
