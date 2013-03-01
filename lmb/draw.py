@@ -10,10 +10,16 @@
     :copyright: (c) 2013, Lambda Labs, Inc.
     :license: BSD. See LICENSE.
 """
-import os
-from PIL import ImageDraw
+from utils import new_name
 
 OUTTYPE = 'PNG'
+
+
+def pil_crop_rect(rect_tup):
+    """ x, y, w, h -> x, y, x+w, x+h
+    """
+    x, y, w, h = [int(x) for x in rect_tup]
+    return (x, y, x+w, y+h)
 
 
 def pil_rect(rect_tup):
@@ -23,18 +29,11 @@ def pil_rect(rect_tup):
     return (x, y), (x + w, y + h)
 
 
-def draw_name(src):
-    head, tail = os.path.split(src)
-    pwd = os.getcwd()
-    return os.path.join(pwd, 'draw_' + tail)
-
-
 def draw_rect(img, rect_tup):
-    """Draws a rectangle on an image
+    """Draws a rectangle on an image, causes a side effect of  writing it to
+    disk
     """
-    pi = img.img_pil
-    draw = ImageDraw.Draw(pi)
-    draw.rectangle(pil_rect(rect_tup), fill=None, outline='green')
-    name = draw_name(img.src)
-    pi.save(name, OUTTYPE)
+    img.draw(rect_tup)
+    name = new_name(img.src)
+    img.save(name)
     return name

@@ -26,6 +26,7 @@ curl http://www.lambdal.com/install.sh | sh
 
 - ```lmb draw```: draw boxes around images
 - ```lmb detect```: detect features in an image, pipe this to ```lmb draw``` to draw each feature!
+- ```lmb crop```: crop shapes from an image
 - ```lmb gallery```: create an HTML image gallery
 
 Examples:
@@ -50,9 +51,9 @@ Find the faces in all your photos:
 ls ~/Pictures/*.jpg | lmb detect
 ```
 
-Find faces in all of your pictures, draw boxes around them, and put them into an image gallery!
+Find faces in all of your pictures, crop around the face, and put them into an image gallery!
 ```
-ls ~/Pictures/*.{jpg,png} | lmb detect | grep face | lmb draw | xargs lmb gallery > index.html && open index.html
+ls ~/Pictures/*.{jpg,png} | lmb detect | grep face | lmb crop | xargs lmb gallery > index.html && open index.html
 ```
 
 
