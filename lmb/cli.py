@@ -78,7 +78,7 @@ def crop(path, shape, x, y, w, h):
     img = Img(path)
     cropped = img.crop(shape)
     out = new_name(path, 'crop')
-    #cropped.save(out)
+    cropped.save(out)
     sys.stdout.write('%s\n' % out)
 
 

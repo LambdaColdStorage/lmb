@@ -13,7 +13,7 @@
 import os
 import cv
 from utils import pil_path
-from draw import pil_rect
+from draw import pil_rect, pil_crop_rect
 from PIL import ImageDraw
 
 
@@ -122,7 +122,7 @@ class Img(object):
         img, rect -> pil_img
         """
         rect = [int(x) for x in rect]
-        cropped_img = self.img_pil.crop(rect)
+        cropped_img = self.img_pil.crop(pil_crop_rect(rect))
         return cropped_img
 
     def dict(self):
