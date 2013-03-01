@@ -86,3 +86,11 @@ def pretty_date(date):
 
 def pretty_now():
     return pretty_date(datetime.datetime.now())
+
+
+def new_name(src, prefix='draw'):
+    """path, prefix -> new path with prefix
+    """
+    head, tail = os.path.split(src)
+    pwd = os.getcwd()
+    return os.path.join(pwd, ('%s_' % prefix) + tail)
