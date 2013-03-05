@@ -90,6 +90,18 @@ def edge(image):
     pass
 
 
+def cli(*images):
+    """Perform an averaging over the set of images
+    count = len(images)
+    for image in images:
+        cv.addWeighted(average, 1, image, 1/count, 0, average)
+    """
+    for image in images:
+        avg = image
+    return avg
+
+
+
 def gallery(*images):
     """Create an HTML gallery for the images provided.
 
