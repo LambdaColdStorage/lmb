@@ -19,7 +19,7 @@ def pil_crop_rect(rect_tup):
     """ x, y, w, h -> x, y, x+w, x+h
     """
     x, y, w, h = [int(x) for x in rect_tup]
-    return (x, y, x+w, y+h)
+    return (x, y, x + w, y + h)
 
 
 def pil_rect(rect_tup):
