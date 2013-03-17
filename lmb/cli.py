@@ -104,14 +104,14 @@ def average(*images):
     first = Img(fpath)
     sz = first.size
     sizetup = sz.to_tuple()
-    moving_average = cv.CreateImage(sizetup,32,1) # image to store running avg
-    result = cv.CreateImage(sizetup,8,1) # image to show running avg
+    moving_average = cv.CreateImage(sizetup, 32, 1)
+    result = cv.CreateImage(sizetup, 8, 1)
     count = 1
     result = first.cv_rep()
     for path in images:
         img = Img(path)
         rep = img.resize(sz)
-        cv.RunningAvg(rep, moving_average, 1./float(count), None)
+        cv.RunningAvg(rep, moving_average, 1. / float(count), None)
         count += 1
     cv.ConvertScaleAbs(moving_average, result)
     out = new_name(fpath, 'average')
