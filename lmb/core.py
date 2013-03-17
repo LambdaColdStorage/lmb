@@ -28,6 +28,9 @@ class Point(object):
             'y': self.y
         }
 
+    def to_tuple(self):
+        return self.x, self.y
+
 
 class Size(object):
     def __init__(self, w, h):
@@ -39,6 +42,9 @@ class Size(object):
             'w': self.w,
             'h': self.h
         }
+
+    def to_tuple(self):
+        return self.w, self.h
 
 
 class Rect(object):
@@ -86,14 +92,34 @@ class Img(object):
         self.img_pil = pil_path(src)
         self.faces = []
 
-    def cv_rep(self):
+    @property
+    def size(self):
+        if not hasattr(self, '_size'):
+            self._size = Size(*self.img_pil.size)
+        return self._size
+
+    def cv_rep(self, depth=cv.IPL_DEPTH_8U, chan=1):
         """OpenCV representation of this image.
         """
-        pc = self.img_pil.convert('L')
-        cvi = cv.CreateImageHeader(pc.size, cv.IPL_DEPTH_8U, 1)
-        cv.SetData(cvi, pc.tostring(), pc.size[0])
-        self.img_cv = cvi
-        return cvi
+        if not hasattr(self, '_cv_rep'):
+            pc = self.img_pil.convert('L')
+            cvi = cv.CreateImageHeader(pc.size, depth, chan)
+            cv.SetData(cvi, pc.tostring())
+            self.img_cv = cvi
+            self._cv_rep = cvi
+        return self._cv_rep
+
+    def cv_mat(self, depth=cv.IPL_DEPTH_8U):
+        if not hasattr(self, '_cv_mat'):
+            self._cv_mat = cv.GetMat(self.cv_rep(depth=depth))
+        return self._cv_mat
+
+    def resize(self, size):
+        """Img, size -> cvImg
+        """
+        result = cv.CreateMat(size.w, size.h, cv.CV_8UC1)
+        cv.Resize(self.cv_mat(), result)
+        return result
 
     def draw(self, rect):
         """Draws a rectangle on an image, changes made in place
@@ -116,12 +142,29 @@ class Img(object):
             raise Exception("Couldn't find a valid image type in path: %s"
                             % path)
 
+    def __add__(self, addend):
+        """Add two images together -> cvImg
+        """
+        bmp = self.empty()
+        if isinstance(other, Img):
+            cv.Add(self.cv_rep(), addend.cv_rep(), bmp)
+        else:
+            cv.AddS(self.cv_rep(), cv.Scalar(addend,addend,addend), bmp)
+        return bmp
+
+    def empty(self, depth=cv.IPL_DEPTH_8U, chan=3):
+        """Creates an empty copy of this image
+        """
+        bmp = cv.CreateImage(self.size, depth, chan)
+        cv.SetZero(bmp)
+        return bmp
+
     def crop(self, rect):
         """Crops this image around the rect
 
         img, rect -> pil_img
         """
-        rect = [int(x) for x in rect]
+        rect = [int(float(x)) for x in rect]
         cropped_img = self.img_pil.crop(pil_crop_rect(rect))
         return cropped_img
 
