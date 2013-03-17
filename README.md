@@ -25,6 +25,7 @@ curl http://www.lambdal.com/install.sh | sh
 **```lmb```** can also be accessed via a suite of well-designed command line tools.
 
 - ```lmb draw```: draw boxes around images
+- ```lmb average```: average the images provided as arguments to the script
 - ```lmb detect```: detect features in an image, pipe this to ```lmb draw``` to draw each feature!
 - ```lmb crop```: crop shapes from an image
 - ```lmb gallery```: create an HTML image gallery
@@ -54,6 +55,11 @@ ls ~/Pictures/*.jpg | lmb detect
 Find faces in all of your pictures, crop around the face, and put them into an image gallery!
 ```
 ls ~/Pictures/*.{jpg,png} | lmb detect | grep face | lmb crop | xargs lmb gallery > index.html && open index.html
+```
+
+Display the average crop of all faces in all of your photos:
+```
+open `ls ~/Pictures/*.jpg | lmb detect | grep face | lmb crop | xargs lmb average`
 ```
 
 

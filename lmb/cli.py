@@ -22,6 +22,7 @@
 """
 import sys
 from sys import stdout
+import cv
 import draw as lmb_draw
 import detect as lmb_detect
 from core import Img
@@ -88,6 +89,35 @@ def edge(image):
     :param image: an image path
     """
     pass
+
+
+def average(*images):
+    """Perform an averaging over the set of images
+    count = len(images)
+    for image in images:
+        cv.addWeighted(average, 1, image, 1/count, 0, average)
+    """
+    if not len(images):
+        return None
+
+    fpath = images[0]
+    first = Img(fpath)
+    sz = first.size
+    sizetup = sz.to_tuple()
+    moving_average = cv.CreateImage(sizetup,32,1) # image to store running avg
+    result = cv.CreateImage(sizetup,8,1) # image to show running avg
+    count = 1
+    result = first.cv_rep()
+    for path in images:
+        img = Img(path)
+        rep = img.resize(sz)
+        cv.RunningAvg(rep, moving_average, 1./float(count), None)
+        count += 1
+    cv.ConvertScaleAbs(moving_average, result)
+    out = new_name(fpath, 'average')
+    cv.SaveImage(out, result)
+    sys.stdout.write('%s\n' % out)
+    return result
 
 
 def gallery(*images):
