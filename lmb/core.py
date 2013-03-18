@@ -146,10 +146,10 @@ class Img(object):
         """Add two images together -> cvImg
         """
         bmp = self.empty()
-        if isinstance(other, Img):
+        if isinstance(addend, Img):
             cv.Add(self.cv_rep(), addend.cv_rep(), bmp)
         else:
-            cv.AddS(self.cv_rep(), cv.Scalar(addend,addend,addend), bmp)
+            cv.AddS(self.cv_rep(), cv.Scalar(addend, addend, addend), bmp)
         return bmp
 
     def empty(self, depth=cv.IPL_DEPTH_8U, chan=3):
