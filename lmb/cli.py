@@ -148,6 +148,19 @@ Created with the <a href="http://github.com/lambdal/lmb">Lambda Labs API</a>
     stdout.write(result)
     return result
 
+def align_faces(*images):
+    """Creates a movie by aligning the faces of all frames into a video
+    """
+    for image in images:
+        img = lmb_detect.img_url(image)
+        resize_size = img.size
+        for face in img.faces:
+            x, y, w, h = face.rect
+            video.write(aligned_image)
+
+
+
+
 
 if __name__ == '__main__':
     command = sys.argv[1]

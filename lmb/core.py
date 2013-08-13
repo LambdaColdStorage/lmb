@@ -12,6 +12,7 @@
 """
 import os
 import cv
+import cv2
 from utils import pil_path
 from draw import pil_rect, pil_crop_rect
 from PIL import ImageDraw
@@ -168,6 +169,11 @@ class Img(object):
         cropped_img = self.img_pil.crop(pil_crop_rect(rect))
         return cropped_img
 
+    def align_image(self, src_shape, dst_shape):
+        """Aligns an image from src_shape to dst_shape
+        """
+        pass
+
     def dict(self):
         d = {
             'source': self.src,
@@ -228,3 +234,23 @@ class Face(object):
         return dict(confidence=self.confidence,
                     rect=self.rect.dict(),
                     **self.features)
+
+class Video(object):
+    """Core video object
+
+    :param out_path: output path such as 'example.avi'
+    :param fps: frames per second
+    :param size: two-tuple of width, height
+    """
+    def __init__(self, out_path, fps, size):
+        self.path = out_path
+        self.size = size
+        self.width, self.height = self.size
+        self.fps = fps
+        self._video_object = cv2.VideoWriter(self.path, self.fps, self.size)
+
+    def write(self, img):
+        self._video_object.write(img)
+
+    def save(self):
+        self._video_object.release()
