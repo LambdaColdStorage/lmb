@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 function check {
 	TASK=$1
 	EVAL=$2
